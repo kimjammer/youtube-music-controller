@@ -7,6 +7,8 @@
 
 This StreamDeck plugin allows you to control the [YouTube Music Desktop app](https://github.com/th-ch/youtube-music).
 
+Requires v.3.7.1 or later of the YouTube Music Desktop app.
+
 ## Actions
 - Toggle play/pause
 - Next track
