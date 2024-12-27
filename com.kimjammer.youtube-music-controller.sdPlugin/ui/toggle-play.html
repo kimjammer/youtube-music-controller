@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <title>Toggle Play Settings</title>
+    <meta charset="utf-8" />
+    <script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+</head>
+
+<body>
+    <!--
+        Learn more about property inspector components at https://sdpi-components.dev/docs/components
+    -->
+    <sdpi-item label="Host">
+        <sdpi-textfield id="host" placeholder="127.0.0.1"></sdpi-textfield>
+    </sdpi-item>
+	<sdpi-item label="Port">
+		<sdpi-textfield id="port" placeholder="26538"></sdpi-textfield>
+	</sdpi-item>
+
+	<sdpi-button onclick="authorize()">Save & Authorize</sdpi-button>
+
+	<script>
+		const { streamDeckClient } = SDPIComponents;
+
+		async function authorize() {
+			const settings = await streamDeckClient.getGlobalSettings();
+			let host = document.getElementById("host");
+			settings.host = host.value;
+			let port = document.getElementById("port");
+			settings.port = port.value;
+			await streamDeckClient.setGlobalSettings(settings);
+
+			const response = await fetch("http://" + settings.host + ":" + settings.port + "/auth/youtube-music-controller", {
+				method: "POST"
+			})
+			if (response.ok) {
+				let resp = await response.json();
+				settings.auth_token = resp.accessToken;
+				settings.auth_ok = true;
+				settings.conn_ok = true;
+				await streamDeckClient.setGlobalSettings(settings);
+				alert("Authorization successful!");
+			} else {
+				alert("Authorization failed!");
+			}
+		}
+
+		async function loadSettings() {
+			const settings = await streamDeckClient.getGlobalSettings();
+			let host = document.getElementById("host");
+			host.value = settings.host;
+			let port = document.getElementById("port");
+			port.value = settings.port;
+		}
+
+		loadSettings();
+	</script>
+</body>
+</html>

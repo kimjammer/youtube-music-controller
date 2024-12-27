@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <title>Song Info Settings</title>
+    <meta charset="utf-8" />
+    <script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+</head>
+
+<body>
+    <!--
+        Learn more about property inspector components at https://sdpi-components.dev/docs/components
+    -->
+	<sdpi-item label="Display Scrolling Text">
+		<sdpi-checkbox-list setting="shownText" columns="1">
+			<option value="title">Title</option>
+			<option value="artist">Artist</option>
+			<option value="album">Album</option>
+		</sdpi-checkbox-list>
+	</sdpi-item>
+	<sdpi-item label="Scroll Speed">
+		<sdpi-range
+				setting="scrollSpeed"
+				min="1"
+				max="10"
+				step="1"
+		>
+		</sdpi-range>
+	</sdpi-item>
+	<script>
+	</script>
+</body>
+</html>
