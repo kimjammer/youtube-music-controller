@@ -19,6 +19,16 @@ Requires v.3.7.1 or later of the YouTube Music Desktop app.
   - Shows album art/thumbnail
 - Toggle mute/unmute (Pending fix of [bug](https://github.com/th-ch/youtube-music/issues/2789))
 
+## Installation
+
+1. Download the latest release from the [Releases](https://github.com/kimjammer/youtube-music-controller/releases)
+2. Double click to install the plugin.
+3. Open the youtube-music desktop app, and Enable Plugins/API Server [Beta]
+4. Open the StreamDeck app, and add the Toggle Play/Pause Action
+5. The default host and port should be correct, but if not, change to match youtube-music
+6. Press Save & Authorize
+7. Allow the authorization in youtube-music
+
 ## Future
 
 Ideally, this plugin should not exist, and support for th-ch/youtube-music
