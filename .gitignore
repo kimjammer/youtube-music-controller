@@ -6,3 +6,5 @@ node_modules/
 *.sdPlugin/logs
 
 .idea/
+
+com.kimjammer.youtube-music-controller.streamDeckPlugin
