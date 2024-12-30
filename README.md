@@ -1,5 +1,7 @@
 # YouTube Music Controller (for StreamDeck & th-ch/youtube-music)
 
+![Image of StreamDeck showing plugin actions](feature.jpg)
+
 > [!NOTE]
 > This plugin was inspired by [XeroxDev/YTMD-StreamDeck](https://github.com/XeroxDev/YTMD-StreamDeck).
 > 
