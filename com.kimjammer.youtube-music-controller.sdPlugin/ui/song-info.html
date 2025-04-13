@@ -27,7 +27,17 @@
 		>
 		</sdpi-range>
 	</sdpi-item>
-	<script>
-	</script>
+	<sdpi-item label="Album Quadrant">
+		<sdpi-select setting="quadrant" placeholder="Choose album cover size" default="full">
+			<option value="full">Full</option>
+			<option value="tl">Top Left</option>
+			<option value="tr">Top Right</option>
+			<option value="bl">Bottom Left</option>
+			<option value="br">Bottom Right</option>
+		</sdpi-select>
+	</sdpi-item>
+	<sdpi-item label="Gap Compensation">
+		<sdpi-checkbox setting="gapComp" label="Enable"></sdpi-checkbox>
+	</sdpi-item>
 </body>
 </html>

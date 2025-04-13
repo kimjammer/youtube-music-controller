@@ -1,6 +1,7 @@
 # YouTube Music Controller (for StreamDeck & th-ch/youtube-music)
 
 ![Image of StreamDeck showing plugin actions](feature.jpg)
+![Screenshot of 2x2 album grid](albumart.png)
 
 > [!NOTE]
 > This plugin was inspired by [XeroxDev/YTMD-StreamDeck](https://github.com/XeroxDev/YTMD-StreamDeck).
@@ -18,8 +19,8 @@ Requires v.3.7.1 or later of the YouTube Music Desktop app.
 - Shuffle
 - Track Info
   - Shows scrolling text for title, author, and/or album
-  - Shows album art/thumbnail
-- Toggle mute/unmute (Pending fix of [bug](https://github.com/th-ch/youtube-music/issues/2789))
+  - Shows album art/thumbnail, either in one button or in a 2x2 grid
+- Toggle mute/unmute
 
 ## Installation
 
