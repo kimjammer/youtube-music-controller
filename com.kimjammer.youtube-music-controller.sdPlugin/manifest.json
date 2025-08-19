@@ -1,6 +1,6 @@
 {
 	"Name": "YouTube Music Controller",
-	"Version": "0.2.0.0",
+	"Version": "0.2.1.0",
 	"Author": "KimJammer",
 	"Actions": [
 		{
@@ -44,6 +44,21 @@
 			"States": [
 				{
 					"Image": "imgs/actions/shuffle/shuffle",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Repeat",
+			"UUID": "com.kimjammer.youtube-music-controller.repeat",
+			"Icon": "imgs/actions/repeat/repeat",
+			"Tooltip": "Change Repeat Modes",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/repeat/repeat",
 					"TitleAlignment": "middle"
 				}
 			]
