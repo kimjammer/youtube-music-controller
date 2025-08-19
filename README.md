@@ -17,6 +17,7 @@ Requires v.3.7.1 or later of the YouTube Music Desktop app.
 - Next track
 - Previous track
 - Shuffle
+- Repeat
 - Track Info
   - Shows scrolling text for title, author, and/or album
   - Shows album art/thumbnail, either in one button or in a 2x2 grid
