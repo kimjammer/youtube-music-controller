@@ -1,138 +1,141 @@
 {
-	"Name": "YouTube Music Controller",
-	"Version": "0.2.1.0",
-	"Author": "KimJammer",
-	"Actions": [
-		{
-			"Name": "Next",
-			"UUID": "com.kimjammer.youtube-music-controller.next",
-			"Icon": "imgs/actions/next/next",
-			"Tooltip": "Skips to next song",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/next/next",
-					"TitleAlignment": "middle"
-				}
-			]
-		},
-		{
-			"Name": "Previous",
-			"UUID": "com.kimjammer.youtube-music-controller.previous",
-			"Icon": "imgs/actions/previous/previous",
-			"Tooltip": "Goes back to previous song",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/previous/previous",
-					"TitleAlignment": "middle"
-				}
-			]
-		},
-		{
-			"Name": "Shuffle",
-			"UUID": "com.kimjammer.youtube-music-controller.shuffle",
-			"Icon": "imgs/actions/shuffle/shuffle",
-			"Tooltip": "Shuffle queue",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/shuffle/shuffle",
-					"TitleAlignment": "middle"
-				}
-			]
-		},
-		{
-			"Name": "Repeat",
-			"UUID": "com.kimjammer.youtube-music-controller.repeat",
-			"Icon": "imgs/actions/repeat/repeat",
-			"Tooltip": "Change Repeat Modes",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/repeat/repeat",
-					"TitleAlignment": "middle"
-				}
-			]
-		},
-		{
-			"Name": "Toggle Mute",
-			"UUID": "com.kimjammer.youtube-music-controller.toggle-mute",
-			"Icon": "imgs/actions/volume-mute/volume-mute",
-			"Tooltip": "Toggles mute on and off",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/volume-mute/volume-mute",
-					"TitleAlignment": "middle"
-				}
-			]
-		},
-		{
-			"Name": "Toggle Play/Pause",
-			"UUID": "com.kimjammer.youtube-music-controller.toggle-play",
-			"Icon": "imgs/actions/toggle-play/play",
-			"Tooltip": "Plays/Pauses the current song",
-			"PropertyInspectorPath": "ui/toggle-play.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/actions/toggle-play/play",
-					"TitleAlignment": "middle"
-				}
-			]
-		},
-		{
-			"Name": "Song Info",
-			"UUID": "com.kimjammer.youtube-music-controller.song-info",
-			"Icon": "imgs/plugin/category-icon",
-			"Tooltip": "Displays info about the current song",
-			"PropertyInspectorPath": "ui/song-info.html",
-			"Controllers": [
-				"Keypad"
-			],
-			"States": [
-				{
-					"Image": "imgs/plugin/category-icon",
-					"TitleAlignment": "middle"
-				}
-			]
-		}
-	],
-	"Category": "YouTube Music Controller",
-	"CategoryIcon": "imgs/plugin/category-icon",
-	"CodePath": "bin/plugin.js",
-	"Description": "Control the th-ch/youtube-music app from your streamdeck!",
-	"Icon": "imgs/plugin/marketplace",
-	"SDKVersion": 2,
-	"Software": {
-		"MinimumVersion": "6.4"
-	},
-	"OS": [
-		{
-			"Platform": "mac",
-			"MinimumVersion": "10.15"
-		},
-		{
-			"Platform": "windows",
-			"MinimumVersion": "10"
-		}
-	],
-	"Nodejs": {
-		"Version": "20",
-		"Debug": "enabled"
-	},
-	"UUID": "com.kimjammer.youtube-music-controller"
+  "Name": "YouTube Music Controller",
+  "Version": "0.2.2.0",
+  "Author": "KimJammer",
+  "Actions": [
+    {
+      "Name": "Next",
+      "UUID": "com.kimjammer.youtube-music-controller.next",
+      "Icon": "imgs/actions/next/next",
+      "Tooltip": "Skips to next song",
+      "Controllers": ["Keypad"],
+      "States": [
+        {
+          "Image": "imgs/actions/next/next",
+          "TitleAlignment": "middle"
+        }
+      ]
+    },
+    {
+      "Name": "Previous",
+      "UUID": "com.kimjammer.youtube-music-controller.previous",
+      "Icon": "imgs/actions/previous/previous",
+      "Tooltip": "Goes back to previous song",
+      "Controllers": ["Keypad"],
+      "States": [
+        {
+          "Image": "imgs/actions/previous/previous",
+          "TitleAlignment": "middle"
+        }
+      ]
+    },
+    {
+      "Name": "Like",
+      "UUID": "com.kimjammer.youtube-music-controller.like",
+      "Icon": "imgs/actions/like/like-off",
+      "Tooltip": "Goes back to previous song",
+      "Controllers": ["Keypad"],
+      "States": [
+        {
+          "Image": "imgs/actions/like/like-off",
+          "TitleAlignment": "middle"
+        },
+        {
+          "Image": "imgs/actions/like/like-on",
+          "TitleAlignment": "middle"
+        }
+      ]
+    },
+    {
+      "Name": "Shuffle",
+      "UUID": "com.kimjammer.youtube-music-controller.shuffle",
+      "Icon": "imgs/actions/shuffle/shuffle",
+      "Tooltip": "Shuffle queue",
+      "Controllers": ["Keypad"],
+      "States": [
+        {
+          "Image": "imgs/actions/shuffle/shuffle",
+          "TitleAlignment": "middle"
+        }
+      ]
+    },
+    {
+      "Name": "Repeat",
+      "UUID": "com.kimjammer.youtube-music-controller.repeat",
+      "Icon": "imgs/actions/repeat/repeat",
+      "Tooltip": "Change Repeat Modes",
+      "Controllers": ["Keypad"],
+      "States": [
+        {
+          "Image": "imgs/actions/repeat/repeat",
+          "TitleAlignment": "middle"
+        }
+      ]
+    },
+    {
+      "Name": "Toggle Mute",
+      "UUID": "com.kimjammer.youtube-music-controller.toggle-mute",
+      "Icon": "imgs/actions/volume-mute/volume-mute",
+      "Tooltip": "Toggles mute on and off",
+      "Controllers": ["Keypad"],
+      "States": [
+        {
+          "Image": "imgs/actions/volume-mute/volume-mute",
+          "TitleAlignment": "middle"
+        }
+      ]
+    },
+    {
+      "Name": "Toggle Play/Pause",
+      "UUID": "com.kimjammer.youtube-music-controller.toggle-play",
+      "Icon": "imgs/actions/toggle-play/play",
+      "Tooltip": "Plays/Pauses the current song",
+      "PropertyInspectorPath": "ui/toggle-play.html",
+      "Controllers": ["Keypad"],
+      "States": [
+        {
+          "Image": "imgs/actions/toggle-play/play",
+          "TitleAlignment": "middle"
+        }
+      ]
+    },
+    {
+      "Name": "Song Info",
+      "UUID": "com.kimjammer.youtube-music-controller.song-info",
+      "Icon": "imgs/plugin/category-icon",
+      "Tooltip": "Displays info about the current song",
+      "PropertyInspectorPath": "ui/song-info.html",
+      "Controllers": ["Keypad"],
+      "States": [
+        {
+          "Image": "imgs/plugin/category-icon",
+          "TitleAlignment": "middle"
+        }
+      ]
+    }
+  ],
+  "Category": "YouTube Music Controller",
+  "CategoryIcon": "imgs/plugin/category-icon",
+  "CodePath": "bin/plugin.js",
+  "Description": "Control the th-ch/youtube-music app from your streamdeck!",
+  "Icon": "imgs/plugin/marketplace",
+  "SDKVersion": 2,
+  "Software": {
+    "MinimumVersion": "6.4"
+  },
+  "OS": [
+    {
+      "Platform": "mac",
+      "MinimumVersion": "10.15"
+    },
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "Nodejs": {
+    "Version": "20",
+    "Debug": "enabled"
+  },
+  "UUID": "com.kimjammer.youtube-music-controller"
 }

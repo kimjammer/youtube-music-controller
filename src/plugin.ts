@@ -7,12 +7,14 @@ import {SongInfo} from "./actions/song-info";
 import {Shuffle} from "./actions/shuffle";
 import {ToggleMute} from "./actions/toggle-mute";
 import { Repeat } from "./actions/repeat";
+import { Like } from "./actions/like";
 
-streamDeck.logger.setLevel(LogLevel.DEBUG);
+export const logger = streamDeck.logger.setLevel(LogLevel.DEBUG);
 
 // Register actions
 streamDeck.actions.registerAction(new Next());
 streamDeck.actions.registerAction(new Previous());
+streamDeck.actions.registerAction(new Like());
 streamDeck.actions.registerAction(new Shuffle());
 streamDeck.actions.registerAction(new Repeat());
 streamDeck.actions.registerAction(new SongInfo());
