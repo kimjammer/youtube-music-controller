@@ -16,6 +16,7 @@ Requires v.3.7.1 or later of the YouTube Music Desktop app.
 - Toggle play/pause
 - Next track
 - Previous track
+- Like
 - Shuffle
 - Repeat
 - Track Info
