@@ -49,6 +49,21 @@
 			]
 		},
 		{
+			"Name": "Dislike",
+			"UUID": "com.kimjammer.youtube-music-controller.dislike",
+			"Icon": "imgs/actions/dislike/dislike-off",
+			"Tooltip": "Toggles Dislike on the current song",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/dislike/dislike-off",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
 			"Name": "Shuffle",
 			"UUID": "com.kimjammer.youtube-music-controller.shuffle",
 			"Icon": "imgs/actions/shuffle/shuffle",

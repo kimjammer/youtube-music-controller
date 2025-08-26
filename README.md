@@ -17,6 +17,7 @@ Requires v.3.7.1 or later of the YouTube Music Desktop app.
 - Next track
 - Previous track
 - Like
+- Dislike
 - Shuffle
 - Repeat
 - Track Info

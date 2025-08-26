@@ -1,13 +1,14 @@
 import streamDeck, { LogLevel } from "@elgato/streamdeck";
 
-import { TogglePlay } from "./actions/toggle-play";
+import {TogglePlay} from "./actions/toggle-play";
 import {Next} from "./actions/next";
 import {Previous} from "./actions/previous";
 import {SongInfo} from "./actions/song-info";
 import {Shuffle} from "./actions/shuffle";
 import {ToggleMute} from "./actions/toggle-mute";
-import { Repeat } from "./actions/repeat";
-import { Like } from "./actions/like";
+import {Repeat} from "./actions/repeat";
+import {Like} from "./actions/like";
+import {Dislike} from "./actions/dislike";
 
 streamDeck.logger.setLevel(LogLevel.DEBUG);
 
@@ -15,6 +16,7 @@ streamDeck.logger.setLevel(LogLevel.DEBUG);
 streamDeck.actions.registerAction(new Next());
 streamDeck.actions.registerAction(new Previous());
 streamDeck.actions.registerAction(new Like());
+streamDeck.actions.registerAction(new Dislike());
 streamDeck.actions.registerAction(new Shuffle());
 streamDeck.actions.registerAction(new Repeat());
 streamDeck.actions.registerAction(new SongInfo());
