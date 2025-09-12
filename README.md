@@ -10,7 +10,7 @@
 
 This StreamDeck plugin allows you to control the [YouTube Music Desktop app](https://github.com/th-ch/youtube-music).
 
-Requires v.3.7.1 or later of the YouTube Music Desktop app.
+Requires v.3.11.0 or later of the YouTube Music Desktop app.
 
 ## Actions
 - Toggle play/pause
@@ -24,6 +24,8 @@ Requires v.3.7.1 or later of the YouTube Music Desktop app.
   - Shows scrolling text for title, author, and/or album
   - Shows album art/thumbnail, either in one button or in a 2x2 grid
 - Toggle mute/unmute
+- Volume up
+- Volume down
 
 ## Installation
 
@@ -45,9 +47,9 @@ threw this plugin together. For future reference, here are the blockers
 I found that will need to be fixed for this to happen.
 
 ### Requirements for XeroxDev/YTMD-StreamDeck support of th-ch/youtube-music
-- Websocket/Server-Sent API
+-[x] Websocket/Server-Sent API
 - API to get on/off status of like, dislike, mute
-- API to get current volume level
+-[x] API to get current volume level
 - Reimplementation of ytmdesktop-ts-companion for th-ch/youtube-music
   - ytmdesktop-ts-companion is fairly tightly coupled to ytmdesktop, making
   this not trivial.

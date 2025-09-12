@@ -1,22 +1,32 @@
-import { action, KeyDownEvent, SingletonAction, WillAppearEvent, streamDeck } from "@elgato/streamdeck";
+import {action, KeyDownEvent, SingletonAction, WillAppearEvent, streamDeck, WillDisappearEvent} from "@elgato/streamdeck";
 import {ApiClient} from "../common/api-client";
 import {Endpoints} from "../common/endpoints";
+import {GlobalSettings} from "../common/types";
+import {WsClient} from "../common/ws-client";
+import {DataTypes, PlayerInfoData, PlayerStateChangedData, ShuffleChangedData, SongInfo} from "../common/api-types";
+import {findInstance, findInstanceIndex} from "../common/utils";
 
-type GlobalSettings = {
-	host: string;
-	port: number;
-	auth_token: string;
-	auth_ok: boolean;
-	conn_ok: boolean;
-}
 
 /**
  * Toggle between playing/pausing the current song
  */
 @action({ UUID: "com.kimjammer.youtube-music-controller.toggle-play" })
 export class TogglePlay extends SingletonAction<TogglePlaySettings> {
+	private instances: Instance[] = [];
+
+	constructor(wsClient: WsClient) {
+		super();
+		wsClient.subscribe(DataTypes.PlayerInfo, this.onPlayerInfo.bind(this));
+		wsClient.subscribe(DataTypes.PlayerStateChanged, this.onPlayerStateChanged.bind(this));
+	}
 
 	override async onWillAppear(ev: WillAppearEvent<TogglePlaySettings>): Promise<void> {
+		//Add current instance to list
+		let instance: Instance = {
+			ev: ev,
+		}
+		this.instances.push(instance);
+
 		//Check the settings
 		let settings: GlobalSettings = await streamDeck.settings.getGlobalSettings();
 
@@ -51,6 +61,19 @@ export class TogglePlay extends SingletonAction<TogglePlaySettings> {
 				await ev.action.setTitle("");
 			}
 		})
+
+		let songInfo: SongInfo = await ApiClient.get(Endpoints.Song);
+		await this.updateImage(!songInfo.isPaused);
+	}
+
+	override onWillDisappear(ev: WillDisappearEvent<TogglePlaySettings>): void {
+		let instance = findInstance(this.instances, ev) as Instance;
+		let instanceIndex = findInstanceIndex(this.instances, ev);
+
+		if (!instance || instanceIndex == null) return;
+
+		//Remove instance from list
+		this.instances.splice(instanceIndex, 1);
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<TogglePlaySettings>): Promise<void> {
@@ -61,6 +84,24 @@ export class TogglePlay extends SingletonAction<TogglePlaySettings> {
 
 		}
 	}
+
+	private async onPlayerInfo(data: PlayerInfoData): Promise<void> {
+		await this.updateImage(data.isPlaying);
+	}
+
+	private async onPlayerStateChanged(data: PlayerStateChangedData): Promise<void> {
+		await this.updateImage(data.isPlaying);
+	}
+
+	private async updateImage(isPlaying: boolean) {
+		for (let instance of this.instances) {
+			if (isPlaying) {
+				await instance.ev.action.setImage("imgs/actions/toggle-play/pause");
+			} else {
+				await instance.ev.action.setImage("imgs/actions/toggle-play/play");
+			}
+		}
+	}
 }
 
 /**
@@ -68,3 +109,7 @@ export class TogglePlay extends SingletonAction<TogglePlaySettings> {
  */
 type TogglePlaySettings = {
 };
+
+type Instance = {
+	ev: WillAppearEvent<TogglePlaySettings>;
+}

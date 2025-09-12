@@ -1,6 +1,6 @@
 {
 	"Name": "YouTube Music Controller",
-	"Version": "0.2.2.0",
+	"Version": "1.0.0.0",
 	"Author": "KimJammer",
 	"Actions": [
 		{
@@ -136,6 +136,36 @@
 			"States": [
 				{
 					"Image": "imgs/plugin/category-icon",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Volume Up",
+			"UUID": "com.kimjammer.youtube-music-controller.volume-up",
+			"Icon": "imgs/actions/volume-up/volume-up",
+			"Tooltip": "Increases the volume",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/volume-up/volume-up",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Volume Down",
+			"UUID": "com.kimjammer.youtube-music-controller.volume-down",
+			"Icon": "imgs/actions/volume-down/volume-down",
+			"Tooltip": "Decreases the volume",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/volume-down/volume-down",
 					"TitleAlignment": "middle"
 				}
 			]

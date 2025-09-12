@@ -1,4 +1,4 @@
-import streamDeck, {
+import {
 	action,
 	DidReceiveSettingsEvent,
 	KeyDownEvent,
@@ -9,13 +9,15 @@ import streamDeck, {
 import {ApiClient} from "../common/api-client";
 import {Endpoints} from "../common/endpoints";
 import {Jimp} from "jimp";
+import {WsClient} from "../common/ws-client";
+import {DataTypes, PlayerInfoData, VideoChangedData} from "../common/api-types";
+import {findInstance, findInstanceIndex} from "../common/utils";
 
 /**
  * Display info about current song
  */
 @action({ UUID: "com.kimjammer.youtube-music-controller.song-info" })
 export class SongInfo extends SingletonAction<SongInfoSettings> {
-	private pollingInterval: NodeJS.Timeout | undefined;
 	private crrImageURL: string = "";
 	private title: string = "";
 	private artist: string = "";
@@ -23,12 +25,13 @@ export class SongInfo extends SingletonAction<SongInfoSettings> {
 
 	private instances: Instance[] = [];
 
-	override async onWillAppear(ev: WillAppearEvent<SongInfoSettings>): Promise<void> {
-		//If this is the first instance, start polling the API
-		if (this.instances.length === 0) {
-			this.pollingInterval = setInterval(this.updateSongInfo.bind(this), 500);
-		}
+	constructor(wsClient: WsClient) {
+		super();
+		wsClient.subscribe(DataTypes.PlayerInfo, this.onPlayerInfo.bind(this));
+		wsClient.subscribe(DataTypes.VideoChanged, this.onVideoChanged.bind(this));
+	}
 
+	override async onWillAppear(ev: WillAppearEvent<SongInfoSettings>): Promise<void> {
 		//Add current instance to list
 		let instance: Instance = {
 			ev: ev,
@@ -63,8 +66,8 @@ export class SongInfo extends SingletonAction<SongInfoSettings> {
 	}
 
 	override onWillDisappear(ev: WillDisappearEvent<SongInfoSettings>): void {
-		let instance = this.findInstance(ev);
-		let instanceIndex = this.findInstanceIndex(ev);
+		let instance = findInstance(this.instances, ev) as Instance;
+		let instanceIndex = findInstanceIndex(this.instances, ev);
 
 		if (!instance || instanceIndex == null) return;
 
@@ -73,12 +76,6 @@ export class SongInfo extends SingletonAction<SongInfoSettings> {
 
 		clearInterval(instance.scrollingInterval);
 		instance.scrollingInterval = undefined;
-
-		//If no instances left, stop polling
-		if (this.instances.length === 0) {
-			clearInterval(this.pollingInterval);
-			this.pollingInterval = undefined;
-		}
 	}
 
 	override async onKeyDown(ev: KeyDownEvent<SongInfoSettings>): Promise<void> {
@@ -91,7 +88,7 @@ export class SongInfo extends SingletonAction<SongInfoSettings> {
 
 	override async onDidReceiveSettings(ev: DidReceiveSettingsEvent<SongInfoSettings>): Promise<void> {
 		//Find instance
-		let instance = this.findInstance(ev);
+		let instance = findInstance(this.instances, ev) as Instance;
 
 		if (!instance) {
 			return;
@@ -105,45 +102,25 @@ export class SongInfo extends SingletonAction<SongInfoSettings> {
 		await this.updateImage(ev);
 	}
 
-	private async updateSongInfo(): Promise<void> {
-		let song: Song;
-		try {
-			let response = await ApiClient.get(Endpoints.Song);
-			if (response === 204) {
-				this.title = "";
-				this.artist = "";
-				this.album = "";
-				for (let instance of this.instances) {
-					await instance.ev.action.setImage("imgs/plugin/category-icon");
-				}
-			}
-			song = response as Song;
-		} catch (error) {
-			//Only show alert if connection is good and authorized (ie, something unexpected has happened)
-			//Otherwise, status will be shown on pause play button
-			const globalSettings = await streamDeck.settings.getGlobalSettings();
-			if (globalSettings.conn_ok === true && globalSettings.auth_ok === true) {
-				for (let instance of this.instances) {
-					await instance.ev.action.showAlert();
-				}
-			}
-
-			this.title = "";
-			this.artist = "";
-			this.album = "";
-			for (let instance of this.instances) {
+	private async onPlayerInfo(data: PlayerInfoData): Promise<void> {
+		this.crrImageURL = data.song.imageSrc ?? "";
+		this.title = data.song.title;
+		this.artist = data.song.artist;
+		this.album = data.song.album ?? "";
+		for (let instance of this.instances) {
+			if (this.crrImageURL !== "") {
+				await this.updateImage(instance.ev);
+			} else {
 				await instance.ev.action.setImage("imgs/plugin/category-icon");
 			}
-			return;
 		}
+	}
 
-		//Check if song has changed
-		if (song.imageSrc === this.crrImageURL) return;
-
-		this.crrImageURL = song.imageSrc;
-		this.title = song.title;
-		this.artist = song.artist;
-		this.album = song.album;
+	private async onVideoChanged(data: VideoChangedData): Promise<void> {
+		this.crrImageURL = data.song.imageSrc ?? "";
+		this.title = data.song.title;
+		this.artist = data.song.artist;
+		this.album = data.song.album ?? "";
 		for (let instance of this.instances) {
 			await this.updateImage(instance.ev);
 		}
@@ -172,7 +149,7 @@ export class SongInfo extends SingletonAction<SongInfoSettings> {
 
 	//Scroll position of title, artist, album
 	private async updateTitle(ev: WillAppearEvent<SongInfoSettings> | DidReceiveSettingsEvent<SongInfoSettings>): Promise<void> {
-		let instance = this.findInstance(ev);
+		let instance = findInstance(this.instances, ev) as Instance;
 		if (!instance) return;
 
 		let text = "";
@@ -221,38 +198,6 @@ export class SongInfo extends SingletonAction<SongInfoSettings> {
 
 		return output;
 	}
-
-	private findInstance(ev: WillAppearEvent<SongInfoSettings> | WillDisappearEvent<SongInfoSettings> | DidReceiveSettingsEvent<SongInfoSettings>){
-		//Assert we are not in multi action
-		if (ev.payload.isInMultiAction) return;
-
-		//Find coordinates
-		let col = ev.payload.coordinates.column;
-		let row = ev.payload.coordinates.row;
-
-		//Find instance
-		return this.instances.find((instance) => {
-			return !instance.ev.payload.isInMultiAction &&
-				instance.ev.payload.coordinates.column === col &&
-				instance.ev.payload.coordinates.row === row;
-		})
-	}
-
-	private findInstanceIndex(ev: WillAppearEvent<SongInfoSettings> | WillDisappearEvent<SongInfoSettings> | DidReceiveSettingsEvent<SongInfoSettings>){
-		//Assert we are not in multi action
-		if (ev.payload.isInMultiAction) return;
-
-		//Find coordinates
-		let col = ev.payload.coordinates.column;
-		let row = ev.payload.coordinates.row;
-
-		//Find instance
-		return this.instances.findIndex((instance) => {
-			return !instance.ev.payload.isInMultiAction &&
-				instance.ev.payload.coordinates.column === col &&
-				instance.ev.payload.coordinates.row === row;
-		})
-	}
 }
 
 /**
@@ -264,22 +209,6 @@ type SongInfoSettings = {
 	quadrant: string;
 	gapComp: boolean;
 };
-
-type Song = {
-	title: string;
-	artist: string;
-	views: number;
-	uploadDate: string;
-	imageSrc: string;
-	isPaused: boolean;
-	songDuration: number;
-	elapsedSeconds: number;
-	url: string;
-	album: string;
-	videoId: string;
-	playlistId: string;
-	mediaType: "AUDIO" | "ORIGINAL_MUSIC_VIDEO" | "USER_GENERATED_CONTENT" | "PODCAST_EPISODE" | "OTHER_VIDEO";
-}
 
 type Instance = {
 	ev: WillAppearEvent<SongInfoSettings>;

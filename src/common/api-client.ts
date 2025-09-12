@@ -2,7 +2,7 @@ import streamDeck from "@elgato/streamdeck";
 
 export class ApiClient {
 
-	public static async post(endpoint: string): Promise<void> {
+	public static async post(endpoint: string, body: any = {}): Promise<void> {
 		let settings = await streamDeck.settings.getGlobalSettings();
 		let response;
 
@@ -11,7 +11,9 @@ export class ApiClient {
 				method: "POST",
 				headers: {
 					"Authorization": "Bearer " + settings.auth_token as string,
-				}
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(body)
 			});
 		} catch (error) {
 			settings.conn_ok = false;

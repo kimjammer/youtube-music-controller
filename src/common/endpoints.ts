@@ -14,6 +14,8 @@ export class Endpoints {
 
 	public static readonly Repeat = Endpoints.API + "/switch-repeat"
 
+	public static readonly RepeatMode = Endpoints.API + "/repeat-mode"
+
 	public static readonly Shuffle = Endpoints.API + "/shuffle"
 
 	public static readonly TogglePlay = Endpoints.API + "/toggle-play"
@@ -23,4 +25,6 @@ export class Endpoints {
 	public static readonly ToggleMute = Endpoints.API + "/toggle-mute"
 
 	public static readonly Song = Endpoints.API + "/song"
+
+	public static readonly Ws = Endpoints.API + "/ws"
 }
