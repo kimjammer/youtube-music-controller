@@ -1,4 +1,4 @@
-import {
+import streamDeck, {
 	action,
 	DidReceiveSettingsEvent,
 	KeyDownEvent,
@@ -103,10 +103,17 @@ export class SongInfo extends SingletonAction<SongInfoSettings> {
 	}
 
 	private async onPlayerInfo(data: PlayerInfoData): Promise<void> {
-		this.crrImageURL = data.song.imageSrc ?? "";
-		this.title = data.song.title;
-		this.artist = data.song.artist;
-		this.album = data.song.album ?? "";
+		if (data.song) {
+			this.crrImageURL = data.song.imageSrc ?? "";
+			this.title = data.song.title;
+			this.artist = data.song.artist;
+			this.album = data.song.album ?? "";
+		} else {
+			this.crrImageURL = "";
+			this.title = "";
+			this.artist = "";
+			this.album = "";
+		}
 		for (let instance of this.instances) {
 			if (this.crrImageURL !== "") {
 				await this.updateImage(instance.ev);

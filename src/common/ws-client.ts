@@ -15,8 +15,10 @@ import {GlobalSettings} from "./types";
 
 export class WsClient {
 	socket: WebSocket | null = null;
+	connected: boolean = false;
 	prevHost: string = "";
 	prevPort: number = 0;
+	connectivityChecker: NodeJS.Timeout | null = null;
 
 	playerInfoSubscribers: {(data: any): void;} [] = [];
 	videoChangedSubscribers: {(data: any): void;} [] = [];
@@ -27,34 +29,46 @@ export class WsClient {
 	shuffleChangedSubscribers: {(data: any): void;} [] = []
 
 	constructor() {
-		//Listen for changes to global settings
-		streamDeck.settings.onDidReceiveGlobalSettings(async (event) => {
-			let settings = await streamDeck.settings.getGlobalSettings();
-			//If auth_ok is true and host or port changed, reconnect
-			if (settings.auth_ok === true && (settings.host !== this.prevHost || settings.port !== this.prevPort)) {
-				this.disconnect();
+		//Start trying to connect
+		if (!this.connectivityChecker) {
+			this.connectivityChecker = setInterval(async () => {
 				await this.connect();
-			}
-		})
+			}, 1000);
+		}
 	}
 
 	public async connect(): Promise<void> {
+		if (this.connected) {
+			streamDeck.logger.debug("WebSocket already connected");
+			return;
+		}
+		this.connected = true;
 		let settings: GlobalSettings = await streamDeck.settings.getGlobalSettings();
 		this.prevHost = settings.host;
 		this.prevPort = settings.port;
 
 		this.socket = new WebSocket('http://' + settings.host + ":" + settings.port + Endpoints.Ws);
 
-		this.socket.on('error', (m) => streamDeck.logger.error(m));
+		this.socket.on('error', (m) => {});
 
-		this.socket.on('open', function open() {
+		this.socket.on('open', () => {
 			streamDeck.logger.debug("Ws connected");
+			if (this.connectivityChecker) {
+				clearInterval(this.connectivityChecker);
+				this.connectivityChecker = null;
+			}
 		});
 
-		this.socket.on('disconnect', () => {
-			streamDeck.logger.debug("Ws disconnected");
+		this.socket.on('close', (code, reason) => {
+			streamDeck.logger.debug("Ws closed", code, reason);
 			this.socket = null;
-		});
+			this.connected = false;
+			if (!this.connectivityChecker) {
+				this.connectivityChecker = setInterval(async () => {
+					await this.connect();
+				}, 1000);
+			}
+		})
 
 		this.socket.on('message', (data) => {
 			let dataObj = JSON.parse(data.toString());
@@ -90,6 +104,7 @@ export class WsClient {
 		if (this.socket) {
 			try {
 				this.socket.close();
+				streamDeck.logger.debug("Closing WS");
 			} catch (e) {
 				streamDeck.logger.error("Error closing ws", e);
 			} finally {
