@@ -47,7 +47,10 @@ export class WsClient {
 		this.prevHost = settings.host;
 		this.prevPort = settings.port;
 
-		this.socket = new WebSocket('http://' + settings.host + ":" + settings.port + Endpoints.Ws);
+		this.socket = new WebSocket(
+			'ws://' + settings.host + ":" + settings.port + Endpoints.Ws,
+			{ headers: { Authorization: `Bearer ${settings.auth_token}` } }
+		);
 
 		this.socket.on('error', (m) => {});
 
