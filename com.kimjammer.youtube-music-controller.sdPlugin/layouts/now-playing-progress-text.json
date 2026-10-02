@@ -1,0 +1,53 @@
+{
+	"$schema": "https://schemas.elgato.com/streamdeck/plugins/layout.json",
+	"id": "NeoNowPlayingProgressText",
+	"controller": "Neo",
+	"items": [
+		{
+			"key": "artwork",
+			"type": "pixmap",
+			"rect": [0, 0, 50, 50],
+			"value": "imgs/plugin/category-icon.png"
+		},
+		{
+			"key": "title",
+			"type": "text",
+			"rect": [56, 3, 170, 16],
+			"font": {
+				"size": 13,
+				"weight": 600
+			},
+			"color": "#FFFFFF",
+			"alignment": "left",
+			"text-overflow": "clip",
+			"value": "No Song Playing"
+		},
+		{
+			"key": "artist",
+			"type": "text",
+			"rect": [56, 19, 170, 14],
+			"font": {
+				"size": 11,
+				"weight": 400
+			},
+			"color": "#AAAAAA",
+			"alignment": "left",
+			"text-overflow": "clip",
+			"value": "YouTube Music"
+		},
+		{
+			"key": "progress",
+			"type": "bar",
+			"rect": [56, 38, 170, 6],
+			"range": {
+				"min": 0,
+				"max": 100
+			},
+			"value": 0,
+			"bar_bg_c": "#444444",
+			"bar_fill_c": "#FFFFFF",
+			"border_w": 0,
+			"subtype": 0
+		}
+	]
+}

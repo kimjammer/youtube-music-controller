@@ -12,6 +12,8 @@ import {Dislike} from "./actions/dislike";
 import {WsClient} from "./common/ws-client";
 import {VolumeUp} from "./actions/volume-up";
 import {VolumeDown} from "./actions/volume-down";
+import {NeoSongInfo} from "./actions/neo-song-info";
+import {NeoSongTime} from "./actions/neo-song-time";
 
 streamDeck.logger.setLevel("debug");
 
@@ -29,6 +31,8 @@ streamDeck.actions.registerAction(new ToggleMute(wsClient));
 streamDeck.actions.registerAction(new TogglePlay(wsClient));
 streamDeck.actions.registerAction(new VolumeUp());
 streamDeck.actions.registerAction(new VolumeDown());
+streamDeck.actions.registerAction(new NeoSongInfo(wsClient));
+streamDeck.actions.registerAction(new NeoSongTime(wsClient));
 
 // Connect to the Stream Deck.
 await streamDeck.connect();

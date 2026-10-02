@@ -169,6 +169,36 @@
 					"TitleAlignment": "middle"
 				}
 			]
+		},
+		{
+			"Name": "Now Playing (Progress Bar)",
+			"UUID": "com.kimjammer.youtube-music-controller.neo-song-info",
+			"Icon": "imgs/plugin/category-icon",
+			"Tooltip": "Displays currently playing song, artwork, and track progress on the Infobar",
+			"PropertyInspectorPath": "ui/neo-song-info.html",
+			"Controllers": [
+				"Neo"
+			],
+			"States": [
+				{
+					"Image": "imgs/plugin/category-icon"
+				}
+			]
+		},
+		{
+			"Name": "Now Playing (Time)",
+			"UUID": "com.kimjammer.youtube-music-controller.neo-song-time",
+			"Icon": "imgs/plugin/category-icon",
+			"Tooltip": "Displays currently playing song, artwork, playback state, and elapsed/total time on the Infobar",
+			"PropertyInspectorPath": "ui/neo-song-time.html",
+			"Controllers": [
+				"Neo"
+			],
+			"States": [
+				{
+					"Image": "imgs/plugin/category-icon"
+				}
+			]
 		}
 	],
 	"Category": "YouTube Music Controller",
@@ -178,7 +208,7 @@
 	"Icon": "imgs/plugin/marketplace",
 	"SDKVersion": 2,
 	"Software": {
-		"MinimumVersion": "7.1"
+		"MinimumVersion": "7.6"
 	},
 	"OS": [
 		{

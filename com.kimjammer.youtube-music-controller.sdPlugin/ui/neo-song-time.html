@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <title>Now Playing (Time) Settings</title>
+    <meta charset="utf-8" />
+    <script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+    <style>
+        .note-text {
+            margin: 0;
+            font-size: 11px;
+            color: #999;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+    <sdpi-item label="Scroller Type">
+        <sdpi-select setting="scrollerType" default="smooth">
+            <option value="smooth">Smooth</option>
+            <option value="marquee">Character by character</option>
+        </sdpi-select>
+    </sdpi-item>
+
+    <sdpi-item label="Scroll Speed">
+        <sdpi-range
+            setting="scrollSpeed"
+            min="1"
+            max="10"
+            step="1"
+            default="5">
+        </sdpi-range>
+    </sdpi-item>
+
+    <sdpi-item label="Note">
+        <p class="note-text">
+            Smooth rerenders the text more often and may cause slightly higher CPU usage.
+        </p>
+    </sdpi-item>
+</body>
+
+</html>

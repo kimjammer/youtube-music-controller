@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.elgato.com/streamdeck/plugins/layout.json",
+	"id": "NeoNowPlayingProgress",
+	"controller": "Neo",
+	"items": [
+		{
+			"key": "artwork",
+			"type": "pixmap",
+			"rect": [0, 0, 50, 50],
+			"value": "imgs/plugin/category-icon.png"
+		},
+		{
+			"key": "text_canvas",
+			"type": "pixmap",
+			"rect": [56, 2, 170, 34]
+		},
+		{
+			"key": "progress",
+			"type": "bar",
+			"rect": [56, 38, 170, 6],
+			"range": {
+				"min": 0,
+				"max": 100
+			},
+			"value": 0,
+			"bar_bg_c": "#444444",
+			"bar_fill_c": "#FFFFFF",
+			"border_w": 0,
+			"subtype": 0
+		}
+	]
+}

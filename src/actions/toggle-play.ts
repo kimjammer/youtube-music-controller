@@ -3,7 +3,7 @@ import {ApiClient} from "../common/api-client";
 import {Endpoints} from "../common/endpoints";
 import {GlobalSettings} from "../common/types";
 import {WsClient} from "../common/ws-client";
-import {DataTypes, PlayerInfoData, PlayerStateChangedData, ShuffleChangedData, SongInfo} from "../common/api-types";
+import {DataTypes, PlayerInfoData, PlayerStateChangedData, SongInfo, VideoChangedData} from "../common/api-types";
 import {findInstance, findInstanceIndex} from "../common/utils";
 
 
@@ -18,6 +18,7 @@ export class TogglePlay extends SingletonAction<TogglePlaySettings> {
 		super();
 		wsClient.subscribe(DataTypes.PlayerInfo, this.onPlayerInfo.bind(this));
 		wsClient.subscribe(DataTypes.PlayerStateChanged, this.onPlayerStateChanged.bind(this));
+		wsClient.subscribe(DataTypes.VideoChanged, this.onVideoChanged.bind(this));
 	}
 
 	override async onWillAppear(ev: WillAppearEvent<TogglePlaySettings>): Promise<void> {
@@ -95,6 +96,22 @@ export class TogglePlay extends SingletonAction<TogglePlaySettings> {
 
 	private async onPlayerStateChanged(data: PlayerStateChangedData): Promise<void> {
 		await this.updateImage(data.isPlaying);
+	}
+
+	private async onVideoChanged(data: VideoChangedData): Promise<void> {
+		if (!data.song) return;
+
+		if (data.song.isPaused === false) {
+			await this.updateImage(true);
+			return;
+		}
+
+		try {
+			const song: SongInfo = await ApiClient.get(Endpoints.Song);
+			await this.updateImage(!song.isPaused);
+		} catch {
+			await this.updateImage(true);
+		}
 	}
 
 	private async updateImage(isPlaying: boolean) {
