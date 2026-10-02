@@ -7,12 +7,11 @@
 
 > [!NOTE]
 > This plugin was inspired by [XeroxDev/YTMD-StreamDeck](https://github.com/XeroxDev/YTMD-StreamDeck).
-> 
-> The plugin's icons are also taken from YTMD-StreamDeck, for now.
+>
 
 This StreamDeck plugin allows you to control the [YouTube Music Desktop app](https://github.com/pear-devs/pear-desktop).
 
-Requires v.3.11.0 or later of the YouTube Music Desktop app.
+Requires v.3.11.0 or later of the YouTube Music Desktop app and Stream Deck 7.6.0 or later.
 
 ## Actions
 - Toggle play/pause
@@ -28,6 +27,10 @@ Requires v.3.11.0 or later of the YouTube Music Desktop app.
 - Toggle mute/unmute
 - Volume up
 - Volume down
+
+### Neo Infobar
+- Now Playing (Progress Bar)
+- Now Playing (Time)
 
 ## Installation
 

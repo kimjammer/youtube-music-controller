@@ -204,7 +204,7 @@
 	"Category": "YouTube Music Controller",
 	"CategoryIcon": "imgs/plugin/category-icon",
 	"CodePath": "bin/plugin.js",
-	"Description": "Control the pear-devs/pear-desktop app from your streamdeck!",
+	"Description": "Control the pear-devs/pear-desktop app from your Stream Deck!",
 	"Icon": "imgs/plugin/marketplace",
 	"SDKVersion": 2,
 	"Software": {
