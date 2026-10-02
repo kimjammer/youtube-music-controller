@@ -16,6 +16,7 @@ const config = {
 	input: "src/plugin.ts",
 	output: {
 		file: `${sdPlugin}/bin/plugin.js`,
+		inlineDynamicImports: true,
 		sourcemap: isWatching,
 		sourcemapPathTransform: (relativeSourcePath, sourcemapPath) => {
 			return url.pathToFileURL(path.resolve(path.dirname(sourcemapPath), relativeSourcePath)).href;

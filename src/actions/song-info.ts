@@ -115,6 +115,7 @@ export class SongInfo extends SingletonAction<SongInfoSettings> {
 			this.album = "";
 		}
 		for (let instance of this.instances) {
+			if (!instance.ev.action.isKey()) continue;
 			if (this.crrImageURL !== "") {
 				await this.updateImage(instance.ev);
 			} else {
@@ -134,6 +135,7 @@ export class SongInfo extends SingletonAction<SongInfoSettings> {
 	}
 
 	private async updateImage(ev: WillAppearEvent<SongInfoSettings> | DidReceiveSettingsEvent<SongInfoSettings>) {
+		if (!ev.action.isKey()) return;
 		let gap = ev.payload.settings.gapComp ? 32: 0;
 		let albumImage = await Jimp.read(this.crrImageURL);
 		let processed = albumImage.scaleToFit({w: 288+gap, h:288+gap});
@@ -156,6 +158,7 @@ export class SongInfo extends SingletonAction<SongInfoSettings> {
 
 	//Scroll position of title, artist, album
 	private async updateTitle(ev: WillAppearEvent<SongInfoSettings> | DidReceiveSettingsEvent<SongInfoSettings>): Promise<void> {
+		if (!ev.action.isKey()) return;
 		let instance = findInstance(this.instances, ev) as Instance;
 		if (!instance) return;
 

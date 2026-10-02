@@ -1,4 +1,6 @@
-# YouTube Music Controller (for StreamDeck & th-ch/youtube-music)
+# YouTube Music Controller 
+
+## For StreamDeck & pear-devs/pear-desktop (formerly th-ch/youtube-music)
 
 ![Image of StreamDeck showing plugin actions](feature.jpg)
 ![Screenshot of 2x2 album grid](albumart.png)
@@ -8,7 +10,7 @@
 > 
 > The plugin's icons are also taken from YTMD-StreamDeck, for now.
 
-This StreamDeck plugin allows you to control the [YouTube Music Desktop app](https://github.com/th-ch/youtube-music).
+This StreamDeck plugin allows you to control the [YouTube Music Desktop app](https://github.com/pear-devs/pear-desktop).
 
 Requires v.3.11.0 or later of the YouTube Music Desktop app.
 

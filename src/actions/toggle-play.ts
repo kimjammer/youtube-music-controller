@@ -28,7 +28,7 @@ export class TogglePlay extends SingletonAction<TogglePlaySettings> {
 		this.instances.push(instance);
 
 		//Check the settings
-		let settings: GlobalSettings = await streamDeck.settings.getGlobalSettings();
+		let settings: GlobalSettings = await streamDeck.settings.getGlobalSettings<GlobalSettings>();
 
 		//Set Defaults if not set
 		let settingsChanged = false;
@@ -47,18 +47,22 @@ export class TogglePlay extends SingletonAction<TogglePlaySettings> {
 		if (!settings.auth_ok) {
 			settings.auth_ok = false;
 			settingsChanged = true;
-			await ev.action.setTitle("Please\nAuthorize")
+			if (ev.action.isKey()) {
+				await ev.action.setTitle("Please\nAuthorize")
+			}
 		}
 		if (settingsChanged) {
 			await streamDeck.settings.setGlobalSettings(settings);
 		}
 
 		//Listen for changes to global settings (specifically auth_ok)
-		streamDeck.settings.onDidReceiveGlobalSettings(async (event) => {
-			if (!event.settings.auth_ok) {
-				await ev.action.setTitle("Please\nAuthorize")
-			} else {
-				await ev.action.setTitle("");
+		streamDeck.settings.onDidReceiveGlobalSettings<GlobalSettings>(async (event) => {
+			if (ev.action.isKey()) {
+				if (!event.settings.auth_ok) {
+					await ev.action.setTitle("Please\nAuthorize")
+				} else {
+					await ev.action.setTitle("");
+				}
 			}
 		})
 
@@ -95,6 +99,7 @@ export class TogglePlay extends SingletonAction<TogglePlaySettings> {
 
 	private async updateImage(isPlaying: boolean) {
 		for (let instance of this.instances) {
+			if (!instance.ev.action.isKey()) continue;
 			if (isPlaying) {
 				await instance.ev.action.setImage("imgs/actions/toggle-play/pause");
 			} else {

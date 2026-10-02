@@ -51,6 +51,7 @@ export class ToggleMute extends SingletonAction<ToggleMuteSettings> {
 
 	private async updateImage(state: boolean) {
 		for (let instance of this.instances) {
+			if (!instance.ev.action.isKey()) continue;
 			if (state) {
 				await instance.ev.action.setImage("imgs/actions/volume-mute/volume-mute");
 			} else {

@@ -1,9 +1,10 @@
 import streamDeck from "@elgato/streamdeck";
+import {GlobalSettings} from "./types";
 
 export class ApiClient {
 
 	public static async post(endpoint: string, body: any = {}): Promise<void> {
-		let settings = await streamDeck.settings.getGlobalSettings();
+		let settings = await streamDeck.settings.getGlobalSettings<GlobalSettings>();
 		let response;
 
 		try {
@@ -29,7 +30,7 @@ export class ApiClient {
 		}
 
 		if (response.status === 401) {
-			let globalSettings = await streamDeck.settings.getGlobalSettings();
+			let globalSettings = await streamDeck.settings.getGlobalSettings<GlobalSettings>();
 			globalSettings.auth_ok = false;
 			await streamDeck.settings.setGlobalSettings(globalSettings);
 		}
@@ -41,7 +42,7 @@ export class ApiClient {
 	}
 
 	public static async get(endpoint: string): Promise<any> {
-		let settings = await streamDeck.settings.getGlobalSettings();
+		let settings = await streamDeck.settings.getGlobalSettings<GlobalSettings>();
 
 		let response;
 		try {
@@ -65,7 +66,7 @@ export class ApiClient {
 		}
 
 		if (response.status === 401) {
-			let globalSettings = await streamDeck.settings.getGlobalSettings();
+			let globalSettings = await streamDeck.settings.getGlobalSettings<GlobalSettings>();
 			globalSettings.auth_ok = false;
 			await streamDeck.settings.setGlobalSettings(globalSettings);
 		}

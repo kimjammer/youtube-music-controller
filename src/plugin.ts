@@ -1,4 +1,4 @@
-import streamDeck, { LogLevel } from "@elgato/streamdeck";
+import streamDeck from "@elgato/streamdeck";
 
 import {TogglePlay} from "./actions/toggle-play";
 import {Next} from "./actions/next";
@@ -13,7 +13,7 @@ import {WsClient} from "./common/ws-client";
 import {VolumeUp} from "./actions/volume-up";
 import {VolumeDown} from "./actions/volume-down";
 
-streamDeck.logger.setLevel(LogLevel.DEBUG);
+streamDeck.logger.setLevel("debug");
 
 let wsClient = new WsClient();
 

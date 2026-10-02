@@ -1,6 +1,6 @@
 {
 	"Name": "YouTube Music Controller",
-	"Version": "1.0.2.0",
+	"Version": "1.1.0.0",
 	"Author": "KimJammer",
 	"Actions": [
 		{
@@ -174,11 +174,11 @@
 	"Category": "YouTube Music Controller",
 	"CategoryIcon": "imgs/plugin/category-icon",
 	"CodePath": "bin/plugin.js",
-	"Description": "Control the th-ch/youtube-music app from your streamdeck!",
+	"Description": "Control the pear-devs/pear-desktop app from your streamdeck!",
 	"Icon": "imgs/plugin/marketplace",
 	"SDKVersion": 2,
 	"Software": {
-		"MinimumVersion": "6.4"
+		"MinimumVersion": "7.1"
 	},
 	"OS": [
 		{

@@ -43,7 +43,7 @@ export class WsClient {
 			return;
 		}
 		this.connected = true;
-		let settings: GlobalSettings = await streamDeck.settings.getGlobalSettings();
+		let settings: GlobalSettings = await streamDeck.settings.getGlobalSettings<GlobalSettings>();
 		this.prevHost = settings.host;
 		this.prevPort = settings.port;
 

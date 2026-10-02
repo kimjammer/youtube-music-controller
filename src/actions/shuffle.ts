@@ -61,6 +61,7 @@ export class Shuffle extends SingletonAction<ShuffleSettings> {
 
 	private async updateImage(state: boolean) {
 		for (let instance of this.instances) {
+			if (!instance.ev.action.isKey()) continue;
 			if (state) {
 				await instance.ev.action.setImage("imgs/actions/shuffle/shuffle");
 			} else {

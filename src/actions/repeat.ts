@@ -1,4 +1,4 @@
-import {action, KeyDownEvent, SingletonAction, WillAppearEvent, WillDisappearEvent} from "@elgato/streamdeck";
+import {action, KeyAction, KeyDownEvent, SingletonAction, WillAppearEvent, WillDisappearEvent} from "@elgato/streamdeck";
 import {ApiClient} from "../common/api-client";
 import {Endpoints} from "../common/endpoints";
 import {WsClient} from "../common/ws-client";
@@ -61,6 +61,7 @@ export class Repeat extends SingletonAction<RepeatSettings> {
 
 	private async updateImage(mode: string) {
 		for (let instance of this.instances) {
+			if (!instance.ev.action.isKey()) continue;
 			if (mode === "NONE") {
 				await instance.ev.action.setImage("imgs/actions/repeat/repeat-off");
 			} else if (mode === "ONE") {
